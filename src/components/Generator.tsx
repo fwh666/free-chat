@@ -320,7 +320,7 @@ export default () => {
               inputRef.style.height = `${inputRef.scrollHeight}px`
             }}
             rows="1"
-            class="gen-textarea select-none"
+            class="gen-textarea"
           />
           <button min-w-fit select-none onClick={handleButtonClick} disabled={systemRoleEditing()} gen-slate-btn>
             发送
