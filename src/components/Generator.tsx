@@ -117,6 +117,29 @@ export default () => {
   const instantToBottom = () => toBottom('instant')
 
   const requestWithLatestMessage = async() => {
+    // 查询时候先校验token
+    const token = localStorage.getItem('token')
+    const response = await fetch('/api/checkCurrentAuth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      },
+      body: JSON.stringify({
+        token,
+      }),
+    })
+    const responseJson = await response.json()
+    // console.log('token', token)
+    // console.log('responseJson', responseJson)
+    // 登录失败-跳转登录
+    if (!responseJson.code.toString().endsWith('0000')) {
+      console.log('跳转登录', token)
+      window.location.href = '/login'
+    } else { console.log('校验成功') }
+
+    // 原始发送逻辑
+
     setLoading(true)
     setCurrentAssistantMessage('')
     setCurrentError(null)
